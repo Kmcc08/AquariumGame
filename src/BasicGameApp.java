@@ -22,17 +22,20 @@ public class BasicGameApp implements Runnable {
 	public JFrame frame;
 	public Canvas canvas;
 	public JPanel panel;
-
+public int counter =0;
+public int counter2 =0;
 	public BufferStrategy bufferStrategy;
 	public Image DinosaurPic;
 	public Image badGuyPic;
 	public Image BackgroundPic;
 	public Image FirePic;
+	public Image swordPic;
 	//Declare the objects used in the program
 	//These are things that are made up of more than one variable type
 	private Character Dinosaur;
 	private Character badGuy;
 	private Character Fire;
+	private Character sword;
 
 
 	// Main method definition
@@ -55,12 +58,15 @@ public class BasicGameApp implements Runnable {
 		//create (construct) the objects needed for the game and load up
 		DinosaurPic = Toolkit.getDefaultToolkit().getImage("dinosaur.png");
 		FirePic = Toolkit.getDefaultToolkit().getImage("fire.jpg");
+		swordPic = Toolkit.getDefaultToolkit().getImage("swords.jpg");
 		badGuyPic = Toolkit.getDefaultToolkit().getImage("Screenshot 2024-12-18 115637.png");//load the picture
 		BackgroundPic = Toolkit.getDefaultToolkit().getImage("cave.png");
 		Dinosaur = new Character(10, 100);
 		badGuy = new Character(600, 600);
 		Fire = new Character(700, 350);
+		sword = new Character(600,350);
 		Fire.isAlive = false;
+		sword.isAlive = false;
 		badGuy.isAlive = true;
 
 
@@ -87,11 +93,26 @@ public class BasicGameApp implements Runnable {
 
 
 	public void moveThings() {
+if(sword.isAlive) {
+	counter++;
+}
 
+if(badGuy.isAlive ==false){
+	counter2++;
+}
 		//calls the move( ) code in the object
 		collisions();
 		Dinosaur.bounce();
 		badGuy.bounce();
+		System.out.println(counter);
+		if(counter> 100){
+			sword.isAlive=false;
+			counter =0;
+		}
+		if(counter2>100){
+			badGuy.isAlive=true;
+			counter2=0;
+		}
 
 
 	}
@@ -107,10 +128,12 @@ public class BasicGameApp implements Runnable {
 			System.out.println("-1 life");
 			Fire.isAlive = true;
 			badGuy.isAlive = false;
+			sword.isAlive = true;
 
 		}
 		if (!Dinosaur.rec.intersects(badGuy.rec)) {
 			Dinosaur.isCrashing = false;
+		//	sword.isAlive = false;
 		//	Fire.isAlive = false;
 
 		}
@@ -167,10 +190,17 @@ public class BasicGameApp implements Runnable {
 		//draw the image of the Dinosaurnaut
 		g.drawImage(BackgroundPic, 0, 0, WIDTH, HEIGHT, null);
 
-		g.drawImage(DinosaurPic, Dinosaur.xpos, Dinosaur.ypos, Dinosaur.width, Dinosaur.height, null);
-		if (Fire.isAlive == true) {
-			g.drawImage(FirePic, Fire.xpos, Fire.ypos, Fire.width, Fire.height, null);
+		if(Dinosaur.isAlive == true){
+			g.drawImage(DinosaurPic, Dinosaur.xpos, Dinosaur.ypos, Dinosaur.width, Dinosaur.height, null);
 		}
+	//	if (Fire.isAlive == true) {
+		//	g.drawImage(FirePic, Fire.xpos, Fire.ypos, Fire.width, Fire.height, null);
+		//}
+		if (sword.isAlive == true) {
+			//System.out.println("alive");
+			g.drawImage(swordPic, sword.xpos, sword.ypos, sword.width, sword.height, null);
+		}
+
         if (badGuy.isAlive == true){
 			g.drawImage(badGuyPic, badGuy.xpos, badGuy.ypos, badGuy.width, badGuy.height, null);
 		}
