@@ -24,6 +24,7 @@ public class BasicGameApp implements Runnable {
 	public JPanel panel;
 public int counter =0;
 public int counter2 =0;
+public int collissioncounter=0;
 	public BufferStrategy bufferStrategy;
 	public Image DinosaurPic;
 	public Image badGuyPic;
@@ -103,7 +104,7 @@ if(badGuy.isAlive ==false){
 		//calls the move( ) code in the object
 		collisions();
 		Dinosaur.bounce();
-		badGuy.bounce();
+		//badGuy.bounce();
 		System.out.println(counter);
 		if(counter> 100){
 			sword.isAlive=false;
@@ -113,12 +114,21 @@ if(badGuy.isAlive ==false){
 			badGuy.isAlive=true;
 			counter2=0;
 		}
+		if(collissioncounter>2){
+			badGuy.wrap();
+		}else{
+			badGuy.bounce();
+
+		}
+		if(collissioncounter>2)
+			FirePic.isAlive = true;
 
 
 	}
 
 	public void collisions() {
 		if (Dinosaur.rec.intersects(badGuy.rec) && Dinosaur.isCrashing == false) {
+			collissioncounter++;
 			System.out.println(" explosion!!!!!!! ");
 			Dinosaur.dx = -Dinosaur.dx;
 			Dinosaur.dy = -Dinosaur.dy;
@@ -129,6 +139,8 @@ if(badGuy.isAlive ==false){
 			Fire.isAlive = true;
 			badGuy.isAlive = false;
 			sword.isAlive = true;
+
+
 
 		}
 		if (!Dinosaur.rec.intersects(badGuy.rec)) {
