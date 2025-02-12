@@ -25,6 +25,7 @@ public class BasicGameApp implements Runnable {
 public int counter =0;
 public int counter2 =0;
 public int collissioncounter=0;
+public int fireCounter = 0;
 	public BufferStrategy bufferStrategy;
 	public Image DinosaurPic;
 	public Image badGuyPic;
@@ -97,6 +98,9 @@ public int collissioncounter=0;
 if(sword.isAlive) {
 	counter++;
 }
+if(Fire.isAlive){
+	fireCounter++;
+}
 
 if(badGuy.isAlive ==false){
 	counter2++;
@@ -105,23 +109,35 @@ if(badGuy.isAlive ==false){
 		collisions();
 		Dinosaur.bounce();
 		//badGuy.bounce();
-		System.out.println(counter);
-		if(counter> 100){
+		System.out.println(fireCounter);
+		System.out.println(collissioncounter+"collitions");
+		if(counter> 100){ // counter for sword picture disapear
 			sword.isAlive=false;
 			counter =0;
 		}
-		if(counter2>100){
+		if(counter2>100){ //bad guy coming back to life
 			badGuy.isAlive=true;
 			counter2=0;
 		}
-		if(collissioncounter>2){
+		if(fireCounter>100){
+			Fire.isAlive = false;
+			fireCounter = 0;
+		}
+
+		if(collissioncounter<3 && collissioncounter>1){
 			badGuy.wrap();
-		}else{
+			//Fire.isAlive = true;
+
+		} else if(collissioncounter< 4 && collissioncounter>2){
+
+
+
+		}
+		else{
 			badGuy.bounce();
 
 		}
-		if(collissioncounter>2)
-			FirePic.isAlive = true;
+
 
 
 	}
@@ -136,10 +152,14 @@ if(badGuy.isAlive ==false){
 			badGuy.dy = -badGuy.dy;
 			Dinosaur.isCrashing = true;
 			System.out.println("-1 life");
-			Fire.isAlive = true;
 			badGuy.isAlive = false;
-			sword.isAlive = true;
 
+           if(collissioncounter==1){
+			   sword.isAlive=true;
+		   }
+		   if(collissioncounter==2){
+			   Fire.isAlive = true;
+		   }
 
 
 		}
@@ -216,7 +236,11 @@ if(badGuy.isAlive ==false){
         if (badGuy.isAlive == true){
 			g.drawImage(badGuyPic, badGuy.xpos, badGuy.ypos, badGuy.width, badGuy.height, null);
 		}
+		if(Fire.isAlive==true){
+			g.drawImage(FirePic, Fire.xpos, Fire.ypos, Fire.width, Fire.height, null);
+		}
 		g.dispose();
+
 
 		bufferStrategy.show();
 
