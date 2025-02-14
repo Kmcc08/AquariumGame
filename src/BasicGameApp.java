@@ -32,12 +32,14 @@ public int fireCounter = 0;
 	public Image BackgroundPic;
 	public Image FirePic;
 	public Image swordPic;
+	public Image GameOverPic;
 	//Declare the objects used in the program
 	//These are things that are made up of more than one variable type
 	private Character Dinosaur;
 	private Character badGuy;
 	private Character Fire;
 	private Character sword;
+	private Character gameover;
 
 
 	// Main method definition
@@ -63,13 +65,16 @@ public int fireCounter = 0;
 		swordPic = Toolkit.getDefaultToolkit().getImage("swords.jpg");
 		badGuyPic = Toolkit.getDefaultToolkit().getImage("Screenshot 2024-12-18 115637.png");//load the picture
 		BackgroundPic = Toolkit.getDefaultToolkit().getImage("cave.png");
+		GameOverPic = Toolkit.getDefaultToolkit().getImage("GameOver.jpg");
 		Dinosaur = new Character(10, 100);
 		badGuy = new Character(600, 600);
-		Fire = new Character(700, 350);
+		Fire = new Character(200, 400);
 		sword = new Character(600,350);
+		gameover = new Character(500,350);
 		Fire.isAlive = false;
 		sword.isAlive = false;
 		badGuy.isAlive = true;
+		gameover.isAlive = false;
 
 
 	}// BasicGameApp()
@@ -102,17 +107,17 @@ if(Fire.isAlive){
 	fireCounter++;
 }
 
-if(badGuy.isAlive ==false){
-	counter2++;
+if(badGuy.isAlive ==false){  // this is showing how one character would get killed if it was a video game
+	counter2++;             // the counter makes sure that the bad guy comes back after a certian amount of time
 }
 		//calls the move( ) code in the object
 		collisions();
 		Dinosaur.bounce();
 		//badGuy.bounce();
-		System.out.println(fireCounter);
-		System.out.println(collissioncounter+"collitions");
+
+
 		if(counter> 100){ // counter for sword picture disapear
-			sword.isAlive=false;
+			sword.isAlive=false;   // the sword image is showing how the characters are fighting like in a video game
 			counter =0;
 		}
 		if(counter2>100){ //bad guy coming back to life
@@ -130,7 +135,10 @@ if(badGuy.isAlive ==false){
 
 		} else if(collissioncounter< 4 && collissioncounter>2){
 
-
+           gameover.isAlive = true;
+		   badGuy.isAlive = false;
+		   Dinosaur.isAlive = false;
+			System.out.println("END OF GAME");// When this happens it is the end of the project
 
 		}
 		else{
@@ -159,6 +167,10 @@ if(badGuy.isAlive ==false){
 		   }
 		   if(collissioncounter==2){
 			   Fire.isAlive = true;
+		   }
+
+		   if(collissioncounter == 3){
+			   gameover.isAlive = true;
 		   }
 
 
@@ -236,9 +248,13 @@ if(badGuy.isAlive ==false){
         if (badGuy.isAlive == true){
 			g.drawImage(badGuyPic, badGuy.xpos, badGuy.ypos, badGuy.width, badGuy.height, null);
 		}
+		if(gameover.isAlive==true){
+			g.drawImage(GameOverPic, gameover.xpos, gameover.ypos, gameover.width, gameover.height, null);
+		}
 		if(Fire.isAlive==true){
 			g.drawImage(FirePic, Fire.xpos, Fire.ypos, Fire.width, Fire.height, null);
 		}
+
 		g.dispose();
 
 
