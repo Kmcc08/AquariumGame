@@ -48,7 +48,7 @@ public class Character {
         rec  = new Rectangle(xpos, ypos, width, height);
     }
 
-    public void bounce (){
+    public void bounce (){ //this method causes them to switch directions when they intersect
         if (xpos>1000) {
             dx=-dx;
         }
@@ -72,7 +72,7 @@ public class Character {
 
 
 
-    public void wrap(){
+    public void wrap(){  //this method causes one character to wrap by "going through the walls" of the screen instead of bouncing
 
         if(xpos>1000) {
             xpos = 0;

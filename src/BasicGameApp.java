@@ -22,10 +22,10 @@ public class BasicGameApp implements Runnable {
 	public JFrame frame;
 	public Canvas canvas;
 	public JPanel panel;
-public int counter =0;
-public int counter2 =0;
-public int collissioncounter=0;
-public int fireCounter = 0;
+public int counter =0; // this counter counts each frame so that I can have images on the screen for a certain amount of time
+public int counter2 =0; // this counter counts the amount of frames for the bad guy so that he comes back after he disapears
+public int collissioncounter=0; //this counter counts the amount of collissions
+public int fireCounter = 0; // this counter counts the frames so that the fire image is only on the screen for a certain amount of time
 	public BufferStrategy bufferStrategy;
 	public Image DinosaurPic;
 	public Image badGuyPic;
@@ -100,14 +100,14 @@ public int fireCounter = 0;
 
 
 	public void moveThings() {
-if(sword.isAlive) {
+if(sword.isAlive) { // this is making the sword image pop up so that it shows the charcters fighting
 	counter++;
 }
-if(Fire.isAlive){
+if(Fire.isAlive){ // this is making the fire image show up to represent them fighting
 	fireCounter++;
 }
 
-if(badGuy.isAlive ==false){  // this is showing how one character would get killed if it was a video game
+if(badGuy.isAlive ==false){  // this is showing how one character would get killed if it was a video game, the character would disapear
 	counter2++;             // the counter makes sure that the bad guy comes back after a certian amount of time
 }
 		//calls the move( ) code in the object
@@ -120,11 +120,11 @@ if(badGuy.isAlive ==false){  // this is showing how one character would get kill
 			sword.isAlive=false;   // the sword image is showing how the characters are fighting like in a video game
 			counter =0;
 		}
-		if(counter2>100){ //bad guy coming back to life
+		if(counter2>100){ // this causes the bad guy coming back to life
 			badGuy.isAlive=true;
 			counter2=0;
 		}
-		if(fireCounter>100){
+		if(fireCounter>100){  // this causes the fire counter to disapear so that it isn't on screen the whole time
 			Fire.isAlive = false;
 			fireCounter = 0;
 		}
@@ -133,7 +133,7 @@ if(badGuy.isAlive ==false){  // this is showing how one character would get kill
 			badGuy.wrap();
 			//Fire.isAlive = true;
 
-		} else if(collissioncounter< 4 && collissioncounter>2){
+		} else if(collissioncounter< 4 && collissioncounter>2){ // these last two if statements make sure certain things happen only when the collisions counter is a certain number
 
            gameover.isAlive = true;
 		   badGuy.isAlive = false;
@@ -165,7 +165,7 @@ if(badGuy.isAlive ==false){  // this is showing how one character would get kill
            if(collissioncounter==1){
 			   sword.isAlive=true;
 		   }
-		   if(collissioncounter==2){
+		   if(collissioncounter==2){ // these three if statements make sure that certain things happen only when the collisions counter is at a certain number
 			   Fire.isAlive = true;
 		   }
 
@@ -235,24 +235,24 @@ if(badGuy.isAlive ==false){  // this is showing how one character would get kill
 		g.drawImage(BackgroundPic, 0, 0, WIDTH, HEIGHT, null);
 
 		if(Dinosaur.isAlive == true){
-			g.drawImage(DinosaurPic, Dinosaur.xpos, Dinosaur.ypos, Dinosaur.width, Dinosaur.height, null);
+			g.drawImage(DinosaurPic, Dinosaur.xpos, Dinosaur.ypos, Dinosaur.width, Dinosaur.height, null); // dinosaur is only on screen if the alve statement is true
 		}
 	//	if (Fire.isAlive == true) {
 		//	g.drawImage(FirePic, Fire.xpos, Fire.ypos, Fire.width, Fire.height, null);
 		//}
 		if (sword.isAlive == true) {
 			//System.out.println("alive");
-			g.drawImage(swordPic, sword.xpos, sword.ypos, sword.width, sword.height, null);
+			g.drawImage(swordPic, sword.xpos, sword.ypos, sword.width, sword.height, null);//only want it to be on screen when sword,isAlive is true
 		}
 
         if (badGuy.isAlive == true){
-			g.drawImage(badGuyPic, badGuy.xpos, badGuy.ypos, badGuy.width, badGuy.height, null);
+			g.drawImage(badGuyPic, badGuy.xpos, badGuy.ypos, badGuy.width, badGuy.height, null); // only want it to be on screen when badGuy.isAlive is true
 		}
 		if(gameover.isAlive==true){
-			g.drawImage(GameOverPic, gameover.xpos, gameover.ypos, gameover.width, gameover.height, null);
+			g.drawImage(GameOverPic, gameover.xpos, gameover.ypos, gameover.width, gameover.height, null); // I only want this image to show up at the end when they intersect for the third time so I made the if statement
 		}
 		if(Fire.isAlive==true){
-			g.drawImage(FirePic, Fire.xpos, Fire.ypos, Fire.width, Fire.height, null);
+			g.drawImage(FirePic, Fire.xpos, Fire.ypos, Fire.width, Fire.height, null); // same with this one, I only want it to be on screen when Fire.isAlive is true
 		}
 
 		g.dispose();
