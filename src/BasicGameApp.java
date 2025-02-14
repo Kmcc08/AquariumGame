@@ -70,7 +70,7 @@ public int fireCounter = 0; // this counter counts the frames so that the fire i
 		badGuy = new Character(600, 600);
 		Fire = new Character(200, 400);
 		sword = new Character(600,350);
-		gameover = new Character(500,350);
+		gameover = new Character(300,250);
 		Fire.isAlive = false;
 		sword.isAlive = false;
 		badGuy.isAlive = true;
@@ -249,7 +249,7 @@ if(badGuy.isAlive ==false){  // this is showing how one character would get kill
 			g.drawImage(badGuyPic, badGuy.xpos, badGuy.ypos, badGuy.width, badGuy.height, null); // only want it to be on screen when badGuy.isAlive is true
 		}
 		if(gameover.isAlive==true){
-			g.drawImage(GameOverPic, gameover.xpos, gameover.ypos, gameover.width, gameover.height, null); // I only want this image to show up at the end when they intersect for the third time so I made the if statement
+			g.drawImage(GameOverPic, gameover.xpos, gameover.ypos, 400, 400, null); // I only want this image to show up at the end when they intersect for the third time so I made the if statement
 		}
 		if(Fire.isAlive==true){
 			g.drawImage(FirePic, Fire.xpos, Fire.ypos, Fire.width, Fire.height, null); // same with this one, I only want it to be on screen when Fire.isAlive is true
